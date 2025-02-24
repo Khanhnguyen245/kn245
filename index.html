@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C?a Hàng Bánh Ng?t</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;  
+            background-color: #fbe9f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f48fb1;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid #e1bee7;
+        }
+
+        .content {
+            margin: 20px;
+        }
+
+        .cake-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px; 
+        }
+
+        .cake {
+            width: 30%;
+            text-align: center;
+            cursor: pointer;
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #e1bee7;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cake img {
+            width: 100%;
+            height: auto; 
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .cake h2, .cake p, .cake button {
+            margin: 10px 0; 
+        }
+
+        .cake:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cake img:hover {
+            transform: scale(1.05);
+        }
+
+        .instruction-section {
+            display: none;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1bee7;
+        }
+
+        footer {
+            background-color: #f48fb1;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 2px solid #e1bee7;
+        }
+
+        .cart {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1bee7;
+        }
+
+        .cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart ul li {
+            background-color: white;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1bee7;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container button {
+            background-color: #f48fb1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-container button:hover {
+            background-color: #ec407a;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #f48fb1;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>C?a Hàng Bánh Ng?t</h1>
+    </header>
+
+    <div class="content">
+        <div class="cake-row">
+            <!-- Lo?i bánh 1 -->
+            <div class="cake" onclick="showInstruction('panna-cotta')">
+                <h2>Panna Cotta</h2>
+                <img src="https://i.ibb.co/21QXqQcw/panna-cotta-trai-cay.jpg" alt="Panna Cotta">
+                <p class="price">50,000 VND</p>
+                <button onclick="addToCart('Panna Cotta', 50000)">Thêm vào gi?</button>
+            </div>
+            <div class="cake" onclick="showInstruction('su-kem')">
+                <h2>Bánh Su Kem</h2>
+                <img src="https://i.ibb.co/nHrhKkr/Cach-lam-nhan-banh-su-kem-bang-whipping.jpg" alt="Bánh Su Kem">
+                <p class="price">30,000 VND</p>
+                <button onclick="addToCart('Bánh Su Kem', 30000)">Thêm vào gi?</button>
+            </div>
+            <div class="cake" onclick="showInstruction('cookies-chocolate')">
+                <h2>Bánh Cookies Chocolate</h2>
+                <img src="https://i.ibb.co/rKbn66P4/COOKIE-CHOCOLATE-CHIP.jpg" alt="Cookies Chocolate">
+                <p class="price">40,000 VND</p>
+                <button onclick="addToCart('Bánh Cookies Chocolate', 40000)">Thêm vào gi?</button>
+            </div>
+        </div>
+        <div class="cake-row">
+            <div class="cake" onclick="showInstruction('banh-chuoi')">
+                <h2>Bánh Chu?i</h2>
+                <img src="https://i.ibb.co/20CW7Zmw/banh-chuoi-yen-mach-bang-noi-chien-khong-dau-thumb-fd472068055840f999ade7dfd0fca9ec.webp" alt="Bánh Chu?i">
+                <p class="price">35,000 VND</p>
+                <button onclick="addToCart('Bánh Chu?i', 35000)">Thêm vào gi?</button>
+            </div>
+            <div class="cake" onclick="showInstruction('banh-tiramisu')">
+                <h2>Bánh Tiramisu</h2>
+                <img src="https://i.ibb.co/67RygWS8/images.jpg" alt="Bánh Tiramisu">
+                <p class="price">60,000 VND</p>
+                <button onclick="addToCart('Bánh Tiramisu', 60000)">Thêm vào gi?</button>
+            </div>
+            <div class="cake" onclick="showInstruction('banh-dau')">
+                <h2>Bánh Dâu</h2>
+                <img src="https://i.ibb.co/1JJR5XzW/sddefault.jpg" alt="Bánh Dâu">
+                <p class="price">45,000 VND</p>
+                <button onclick="addToCart('Bánh Dâu', 45000)">Thêm vào gi?</button>
+            </div>
+        </div>
+        <div id="panna-cotta" class="instruction-section">
+            <h3>Panna Cotta</h3>
+            <p><strong>Nguyên li?u:</strong> S?a, kem tuoi, du?ng, gelatin, hoa qu? tuoi.</p>
+            <p><strong>Cách làm:</strong></p>
+            <ol>
+                <li>N?u s?a, kem tuoi và du?ng cho d?n khi tan h?t.</li>
+                <li>Thêm gelatin vào h?n h?p, khu?y d?u cho d?n khi gelatin tan hoàn toàn.</li>
+                <li>Ð? h?n h?p vào khuôn và d? trong t? l?nh ít nh?t 4 gi?.</li>
+                <li>Khi panna cotta dông l?i, trang trí v?i hoa qu? ho?c siro yêu thích.</li>
+            </ol>
+        </div>
+
+        <div id="su-kem" class="instruction-section">
+            <h3>Bánh Su Kem</h3>
+            <p><strong>Nguyên li?u:</strong> Bo, du?ng, b?t mì, tr?ng, kem tuoi.</p>
+            <p><strong>Cách làm:</strong></p>
+            <ol>
+                <li>Ðun nu?c, bo và du?ng cho d?n khi tan ch?y hoàn toàn.</li>
+                <li>Thêm b?t mì vào h?n h?p và khu?y d?u cho d?n khi m?n.</li>
+                <li>Ðánh tr?ng và thêm vào h?n h?p b?t, tr?n d?u.</li>
+                <li>Ð?t b?t vào khay nu?ng, nu?ng ? 180°C trong 25 phút.</li>
+                <li>Ch? bánh ngu?i, sau dó nh?i kem vào bánh.</li>
+            </ol>
+        </div>
+
+        <div id="cookies-chocolate" class="instruction-section">
+            <h3>Bánh Cookies Chocolate</h3>
+            <p><strong>Nguyên li?u:</strong> Bo, du?ng, tr?ng, b?t mì, chocolate.</p>
+            <p><strong>Cách làm:</strong></p>
+            <ol>
+                <li>Ðánh bo và du?ng cho d?n khi m?n.</li>
+                <li>Thêm tr?ng và tr?n d?u.</li>
+                <li>Thêm b?t mì và chocolate c?t nh?, tr?n d?u.</li>
+                <li>Ð?t lên khay nu?ng và nu?ng ? 180°C trong 12 phút.</li>
+            </ol>
+        </div>
+
+        <div id="banh-chuoi" class="instruction-section">
+            <h3>Bánh Chu?i</h3>
+            <p><strong>Nguyên li?u:</strong> Chu?i, b?t mì, tr?ng, du?ng, bo.</p>
+            <p><strong>Cách làm:</strong></p>
+            <ol>
+                <li>Ép chu?i và tr?n v?i b?t mì, tr?ng và du?ng.</li>
+                <li>Ð? vào khuôn và nu?ng ? 180°C trong 30 phút.</li>
+            </ol>
+        </div>
+
+        <div id="banh-tiramisu" class="instruction-section">
+            <h3>Bánh Tiramisu</h3>
+            <p><strong>Nguyên li?u:</strong> Bánh ladyfinger, mascarpone, cà phê, cacao.</p>
+            <p><strong>Cách làm:</strong></p>
+            <ol>
+                <li>Nhúng bánh ladyfinger vào cà phê và x?p vào khuôn.</li>
+                <li>Tr?n mascarpone v?i du?ng và tr?ng, d? lên l?p bánh.</li>
+                <li>Ð? l?nh ít nh?t 4 gi? và r?c cacao lên trên tru?c khi thu?ng th?c.</li>
+            </ol>
+        </div>
+
+        <div id="banh-dau" class="instruction-section">
+            <h3>Bánh Dâu</h3>
+            <p><strong>Nguyên li?u:</strong> B?t mì, du?ng, dâu tây, kem tuoi.</p>
+            <p><strong>Cách làm:</strong></p>
+            <ol>
+                <li>Tr?n b?t mì, du?ng và kem tuoi thành m?t h?n h?p m?n.</li>
+                <li>Cho dâu tây vào và nu?ng ? 180°C trong 20 phút.</li>
+            </ol>
+        </div>
+        <div class="cart">
+            <h3>Gi? Hàng</h3>
+            <ul id="cart-items"></ul>
+            <p id="total-price">T?ng ti?n: 0 VND</p>
+            <div class="form-container">
+                <h3>Thông Tin Giao Hàng</h3>
+                <label for="name">H? và tên:</label>
+                <input type="text" id="name" placeholder="Nh?p h? và tên">
+                <label for="address">Ð?a ch? giao hàng:</label>
+                <input type="text" id="address" placeholder="Nh?p d?a ch? giao hàng">
+                <button onclick="submitOrder()">Xác nh?n don hàng</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 C?a Hàng Bánh Ng?t</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(cakeName, price) {
+            cart.push({ cakeName, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartItems = document.getElementById("cart-items");
+            cartItems.innerHTML = "";
+            let totalPrice = 0;
+            cart.forEach(item => {
+                let li = document.createElement("li");
+                li.textContent = `${item.cakeName} - ${item.price} VND`;
+                cartItems.appendChild(li);
+                totalPrice += item.price;
+            });
+            document.getElementById("total-price").textContent = `T?ng ti?n: ${totalPrice} VND`;
+        }
+
+        function submitOrder() {
+            let name = document.getElementById("name").value;
+            let address = document.getElementById("address").value;
+            if (name && address) {
+                alert(`Ðon hàng c?a b?n dã du?c xác nh?n!\nTên: ${name}\nÐ?a ch?: ${address}`);
+                cart = [];
+                updateCart();
+            } else {
+                alert("Vui lòng nh?p d?y d? thông tin!");
+            }
+        }
+
+        function showInstruction(cakeId) {
+            const sections = document.querySelectorAll('.instruction-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            const section = document.getElementById(cakeId);
+            if (section) {
+                section.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
